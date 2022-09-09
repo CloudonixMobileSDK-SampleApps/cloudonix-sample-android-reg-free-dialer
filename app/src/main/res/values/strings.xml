@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Cloudonix Sample RegFree Dialer</string>
+
+    <!-- Registration-Free Settings -->
+    <string name="regfree_register">https://your-code.ngrok.io/devices</string>
+    <string name="cloudonix_domain">example.com</string>
+    <string name="msisdn">700123456789</string>
+    <string name="cloudonix_server">sip.cloudonix.io</string>
+
+    <!-- Intent action name to start the incoming call activity. Used to coordinate between push notification service and manifest -->
+    <string name="incoming_call_action">io.cloudonix.samples.regfree.incoming</string>
+
+    <!-- Incoming call activity labels -->
+    <string name="incoming_title">Incoming Call</string>
+    <string name="caller_label_text">Call From:</string>
+    <string name="caller_placeholder_text">700-555-600600</string>
+    <string name="session_label_text">Session:</string>
+    <string name="session_placeholder_text">xxxxxxxxxxxxxxxx</string>
+    <string name="answer_button_text">Answer</string>
+    <string name="reject_button_text">Reject</string>
+    <string name="ongoing_title">Call</string>
+    <string name="ongoing_caller_label_text">From:</string>
+    <string name="hangup_button_text">Hangup</string>
+</resources>
