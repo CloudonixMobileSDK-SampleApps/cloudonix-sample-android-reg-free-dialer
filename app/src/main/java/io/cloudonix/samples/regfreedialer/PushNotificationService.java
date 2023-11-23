@@ -84,7 +84,12 @@ public class PushNotificationService extends FirebaseMessagingService {
 		String regURL = getResources().getString(R.string.regfree_register);
 		Log.d(TAG, "Registering device " + token + " for number " + msisdn);
 		request(regURL, new RegisterRequest(token, msisdn))
-				.thenAccept(res -> Log.d(TAG, "Got registration response: " + res.toString()))
+				.whenComplete((res,t) -> {
+					if (res == null)
+						return;
+					Log.d(TAG, "Got registration response: " + res.toString());
+					res.close();
+				})
 				.exceptionally(t -> {
 					Log.e(TAG, "Error registering device:", t);
 					if (t.getMessage().contains("Timeout"))
