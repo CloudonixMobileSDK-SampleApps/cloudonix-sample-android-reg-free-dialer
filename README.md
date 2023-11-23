@@ -4,7 +4,7 @@ This repository contains an Android project to build an application that uses th
 https://docs.cloudonix.io/#/platform/registration-free/) and push notifications to make and receive VoIP calls.
 
 To successfully run this application, it needs a supporting Registration-Free server, to be configured in the application's
-source code. An fully working sample server for NodeJS can be found in the [Cloudonix Mobile SDK Sample Apps page on Github](
+source code. A fully working sample server for NodeJS can be found in the [Cloudonix Mobile SDK Sample Apps page on Github](
 https://github.com/CloudonixMobileSDK-SampleApps/cloudonix-sample-reg-free-server)
 
 ## Required External Setup

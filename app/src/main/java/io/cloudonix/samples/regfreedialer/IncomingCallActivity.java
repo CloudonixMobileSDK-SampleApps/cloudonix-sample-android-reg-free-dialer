@@ -58,7 +58,7 @@ public class IncomingCallActivity extends AppCompatActivity {
 		binding.answerBtn.setOnClickListener(view -> {
 			Snackbar.make(findViewById(R.id.incomingCallView), "Answering call...", Snackbar.LENGTH_SHORT).show();
 			binding.answerBtn.setEnabled(false);
-			app.getClient().thenAccept(sdk -> sdk.dialRegistrationFree(session)).exceptionally(t -> {
+			app.pickup(session).exceptionally(t -> {
 				Log.e(TAG, "Failed to accept call:", t);
 				finish();
 				return null;
@@ -80,7 +80,7 @@ public class IncomingCallActivity extends AppCompatActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		registerReceiver(messageReceiver, new IntentFilter(OngoingCallActivity.ONGOING_MESSAGE));
+		registerReceiver(messageReceiver, new IntentFilter(OngoingCallActivity.ONGOING_MESSAGE), RECEIVER_EXPORTED);
 	}
 
 	@Override

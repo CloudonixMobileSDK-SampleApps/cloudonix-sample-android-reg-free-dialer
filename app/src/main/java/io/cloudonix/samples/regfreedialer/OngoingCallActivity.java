@@ -53,17 +53,14 @@ public class OngoingCallActivity extends AppCompatActivity {
 		binding.hangupBtn.setOnClickListener(view -> {
 			Snackbar.make(findViewById(R.id.ongoingCallView), "Hanging up...", Snackbar.LENGTH_SHORT).show();
 			binding.hangupBtn.setEnabled(false);
-			app.getClient().thenAccept(client -> client.hangup(callKey)).exceptionally(t -> {
-				Log.e(TAG, "Error hanging up:", t);
-				return null;
-			});
+			app.hangup(callKey);
 		});
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		registerReceiver(messageReceiver, new IntentFilter(ONGOING_MESSAGE));
+		registerReceiver(messageReceiver, new IntentFilter(ONGOING_MESSAGE), RECEIVER_EXPORTED);
 	}
 
 	@Override

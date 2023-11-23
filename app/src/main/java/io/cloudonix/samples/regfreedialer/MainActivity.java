@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		registerReceiver(messageReceiver, new IntentFilter(GLOBAL_MESSAGE));
+		registerReceiver(messageReceiver, new IntentFilter(GLOBAL_MESSAGE), RECEIVER_EXPORTED);
 	}
 
 	@Override
@@ -51,10 +51,16 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private void verifyPermissions() {
-		if (getApplicationContext().checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED)
+		var ctx = getApplicationContext();
+		if (ctx.checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED &&
+				ctx.checkSelfPermission("android.permission.POST_NOTIFICATIONS") == PackageManager.PERMISSION_GRANTED)
 			return;
-		requestPermissions(new String[] { Manifest.permission.RECORD_AUDIO }, 15);
+		requestPermissions(new String[] {
+				Manifest.permission.RECORD_AUDIO,
+				"android.permission.POST_NOTIFICATIONS"
+		}, 15);
 	}
+
 
 	@Override
 	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

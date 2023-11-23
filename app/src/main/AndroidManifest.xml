@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="io.cloudonix.samples.regfreedialer">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:name=".DialerApplication"
@@ -11,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CloudonixSampleRegFreeDialer"
-        tools:targetApi="31">
+        tools:targetApi="33">
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -23,7 +26,8 @@
         <activity
             android:name=".IncomingCallActivity"
             android:exported="false"
-            android:theme="@style/Theme.CloudonixSampleRegFreeDialer.NoActionBar" />
+            android:theme="@style/Theme.CloudonixSampleRegFreeDialer.NoActionBar">
+        </activity>
         <activity
             android:name=".OngoingCallActivity"
             android:exported="false"
