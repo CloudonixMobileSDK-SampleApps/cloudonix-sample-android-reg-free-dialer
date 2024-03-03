@@ -69,6 +69,12 @@ public class VoIPClient {
 		}
 
 		@Override
+		public void onSipStartFailed(String error) {
+			context.sendBroadcast(new Intent(MainActivity.GLOBAL_MESSAGE)
+					.putExtra(MainActivity.SNACKBAR_TEXT_EXTRA, "Cloudonix SDK failed to start: " + error));
+		}
+
+		@Override
 		public void onSipStopped() {
 			context.sendBroadcast(new Intent(MainActivity.GLOBAL_MESSAGE)
 					.putExtra(MainActivity.SNACKBAR_TEXT_EXTRA, "Cloudonix SDK stopped"));
