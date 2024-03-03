@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-	compileSdk 33
+	compileSdk 34
 
 	defaultConfig {
 		applicationId "io.cloudonix.samples.regfreedialer"
-		minSdk 33
+		minSdk 26
 		targetSdk 33
 		versionCode 1
 		versionName "1.0"
