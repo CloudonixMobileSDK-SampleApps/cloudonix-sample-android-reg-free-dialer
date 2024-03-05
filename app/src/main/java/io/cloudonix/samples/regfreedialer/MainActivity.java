@@ -3,13 +3,14 @@ package io.cloudonix.samples.regfreedialer;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 	private static final String TAG = "dialerMain";
 	public static final String GLOBAL_MESSAGE = "io.cloudonix.samples.regfree.main";
 	public static final String SNACKBAR_TEXT_EXTRA = "io.cloudonix.samples.regfree.snack";
+	private static final String POST_NOTIFICATIONS = "android.permission.POST_NOTIFICATIONS";
 
 	BroadcastReceiver messageReceiver = new BroadcastReceiver() {
 		@Override
@@ -38,10 +40,15 @@ public class MainActivity extends AppCompatActivity {
 		verifyPermissions();
 	}
 
+	@SuppressLint("UnspecifiedRegisterReceiverFlag")
 	@Override
 	protected void onResume() {
 		super.onResume();
-		registerReceiver(messageReceiver, new IntentFilter(GLOBAL_MESSAGE), RECEIVER_EXPORTED);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+			registerReceiver(messageReceiver, new IntentFilter(GLOBAL_MESSAGE), RECEIVER_EXPORTED);
+		} else {
+			registerReceiver(messageReceiver, new IntentFilter(GLOBAL_MESSAGE));
+		}
 	}
 
 	@Override
@@ -51,20 +58,16 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private void verifyPermissions() {
-		var ctx = getApplicationContext();
-		if (ctx.checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED &&
-				ctx.checkSelfPermission("android.permission.POST_NOTIFICATIONS") == PackageManager.PERMISSION_GRANTED)
-			return;
-		requestPermissions(new String[] {
-				Manifest.permission.RECORD_AUDIO,
-				"android.permission.POST_NOTIFICATIONS"
-		}, 15);
+		var perms = ((DialerApplication)getApplication()).getClient().missingPermissions();
+		if (perms.length > 0)
+			requestPermissions(perms, 15);
 	}
 
 
 	@Override
 	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		var shouldShow = shouldShowRequestPermissionRationale(POST_NOTIFICATIONS);
 		for (int i = 0; i < permissions.length; i++) {
 			if (grantResults[i] == PackageManager.PERMISSION_DENIED)
 				new AlertDialog.Builder(this)

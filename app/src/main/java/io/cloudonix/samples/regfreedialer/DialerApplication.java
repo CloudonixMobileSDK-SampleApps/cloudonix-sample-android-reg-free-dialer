@@ -3,14 +3,8 @@ package io.cloudonix.samples.regfreedialer;
 import android.app.Application;
 import android.util.Log;
 
-import net.greenfieldtech.cloudonixsdk.api.interfaces.IVoIPObserver;
 import net.greenfieldtech.cloudonixsdk.api.models.RegistrationData;
-import net.greenfieldtech.cloudonixsdk.appinterface.CloudonixSDKClient;
-import net.greenfieldtech.cloudonixsdk.appinterface.DefaultVoipObserver;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 
 public class DialerApplication extends Application {
@@ -29,6 +23,10 @@ public class DialerApplication extends Application {
 			setUsername(getResources().getString(R.string.msisdn));
 			setDisplayName(getResources().getString(R.string.msisdn));
 		}});
+	}
+
+	public VoIPClient getClient() {
+		return client;
 	}
 
 	public CompletableFuture<Void> pickup(String session) {

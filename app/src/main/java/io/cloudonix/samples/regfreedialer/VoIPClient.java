@@ -128,6 +128,11 @@ public class VoIPClient {
 		sdk.start();
 	}
 
+	public String[] missingPermissions() {
+		return sdk.checkForMissingPermissions();
+	}
+
+
 	public CompletableFuture<Void> pickup(String session) {
 		return waitingForStart.thenCompose(__ -> {
 			if (sdk.dialRegistrationFree(session))
