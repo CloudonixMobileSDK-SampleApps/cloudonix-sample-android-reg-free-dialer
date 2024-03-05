@@ -1,5 +1,6 @@
 package io.cloudonix.samples.regfreedialer;
 
+import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -96,12 +97,27 @@ public class PushNotificationService extends FirebaseMessagingService {
 	@Override
 	public void onCreate() {
 		if (!wasRegistered) // make sure the application is registered for push notifications
-			FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> onNewToken(task.getResult()));
+			FirebaseMessaging.getInstance().getToken()
+					.addOnCompleteListener(task -> {
+						if (task.isSuccessful()) {
+							onNewToken(task.getResult());
+						} else {
+							showAlert("Failed to get device token: " + task.getException());
+						}
+					});
 		ProcessLifecycleOwner.get().getLifecycle().addObserver(new BackgroundObserver());
 		notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
 		var channel = new NotificationChannel(notificationIncomingChannel,
 				notificationIncomingTitle, NotificationManager.IMPORTANCE_HIGH);
 		notificationManager.createNotificationChannel(channel);
+	}
+
+	private void showAlert(String message) {
+		new AlertDialog.Builder(this)
+				.setTitle("Push notifications error")
+				.setMessage(message)
+				.setPositiveButton("OK", (dialog, which) -> {})
+				.show();
 	}
 
 	/**
