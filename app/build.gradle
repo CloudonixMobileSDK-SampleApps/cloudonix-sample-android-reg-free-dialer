@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-	compileSdk 34
+	compileSdk 33
 
 	defaultConfig {
 		applicationId "io.cloudonix.samples.regfreedialer"
@@ -34,15 +34,15 @@ android {
 
 dependencies {
 	implementation 'androidx.appcompat:appcompat:1.6.1'
-	implementation 'com.google.android.material:material:1.11.0'
+	implementation 'com.google.android.material:material:1.9.0'
 	implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 	implementation(name: 'CloudonixSDK', ext: 'aar', group: 'io.cloudonix', version: '5.2.66')
 	implementation 'androidx.preference:preference:1.2.1'
 	implementation 'com.squareup.okhttp3:okhttp:4.10.0'
 	implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
-	implementation 'com.google.code.gson:gson:2.10'
-	implementation 'com.google.firebase:firebase-messaging:23.4.1'
-	implementation 'androidx.lifecycle:lifecycle-process:2.7.0'
+	implementation 'com.google.code.gson:gson:2.9.1'
+	implementation 'com.google.firebase:firebase-messaging:23.3.1'
+	implementation 'androidx.lifecycle:lifecycle-process:2.6.2'
 	testImplementation 'junit:junit:4.13.2'
 
 	constraints {
